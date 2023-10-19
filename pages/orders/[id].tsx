@@ -14,6 +14,7 @@ import TablePlanInternetInstallation from "./../components/plan/TablePlanInterne
 import Conditional from "./../components/Conditional";
 import Save from "../components/shared/icons/save";
 import Script from "next/script";
+import PrintPDF from '../components/PrintPDF'
 
 // import {
 //     ColourOption,
@@ -120,6 +121,16 @@ const ORDERINSTALLATIONDETAIL = ({order, notexclient, token, idusr}) => {
     },[])
    
 
+    const PDFDownloadLink = dynamic(() => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink), {
+        ssr: false,
+        loading: () => <p>Loading...</p>,
+      });
+
+    console.log(order);
+    console.log('Clienttttt/////////////////');
+    console.log(order.data.data.client);
+    console.log('useeerrrrr////////////////////');
+    console.log(order.data.data.user);
     return (
         <>
             <Script src="https://cdn.tailwindcss.com"></Script>
@@ -152,7 +163,11 @@ const ORDERINSTALLATIONDETAIL = ({order, notexclient, token, idusr}) => {
                         {/* <div className="flex space-x-2 px-2 py-2 self-center justify-center sm:justify-center shadow-md"> */}
                         <a className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800" >
                             <Save />
-                            <p>Descargar en PDF</p>
+                            {/* <p>Descargar en PDF</p> */}
+                            <PDFDownloadLink document={<PrintPDF order={order} />} fileName="Orders.pdf">
+                                {/* <button >Imprimir pdf</button> */}
+                                {({ loading }) => (loading ? "Loading document..." : "Descargar en PDF!")}
+                            </PDFDownloadLink>
                         </a>
                     
                             <h2 className="justify-center text-sm  text-gray-600  font-thin lg:text-left xl:text-md xl:text-ligth">{orderSel.user.name.split(' ')[0]}</h2>
@@ -271,7 +286,7 @@ const ORDERINSTALLATIONDETAIL = ({order, notexclient, token, idusr}) => {
 
 export async function getServerSideProps({req, res, query:{id}}) {
     let idusr:any;
-    let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODJiMjBhMzVkZDg4MDAxNGQ3YWEzNyIsImlhdCI6MTY5NzY0MjA5OCwiZXhwIjoxNjk3NzI4NDk4fQ.BHxra2KLGEY7LABjQp0n9AJc_gKAx65oMS4SONh_rtY";
+    let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODJiMjBhMzVkZDg4MDAxNGQ3YWEzNyIsImlhdCI6MTY5Nzc0NjY2NywiZXhwIjoxNjk3ODMzMDY3fQ.qMpTtGg6HwFHWa_UTmgr9PwTXHllCDhaIAlCtFyho0g";
     // token = getCookie('token', {req, res});
     // idusr = getCookie('id', {req, res});
     idusr = "";

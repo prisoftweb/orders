@@ -171,7 +171,7 @@ const Home = ({ orders, token }) => {
 
 export async function getServerSideProps({req, res}) {      
     let orders;
-    let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODJiMjBhMzVkZDg4MDAxNGQ3YWEzNyIsImlhdCI6MTY5NzY0MjA5OCwiZXhwIjoxNjk3NzI4NDk4fQ.BHxra2KLGEY7LABjQp0n9AJc_gKAx65oMS4SONh_rtY";
+    let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODJiMjBhMzVkZDg4MDAxNGQ3YWEzNyIsImlhdCI6MTY5Nzc0NjY2NywiZXhwIjoxNjk3ODMzMDY3fQ.qMpTtGg6HwFHWa_UTmgr9PwTXHllCDhaIAlCtFyho0g";
     // token = getCookie('token', {req, res});    
     try {
         if(token != '') {
